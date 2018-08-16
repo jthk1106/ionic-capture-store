@@ -1,0 +1,8 @@
+{
+  "name": "captureStore",
+  "app_id": "19237578",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
