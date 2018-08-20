@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { BackendProvider } from '../../providers/backend/backend';
 import { HomePage } from '../home/home';
 //import { Observable } from 'rxjs/Observable';
@@ -18,7 +18,7 @@ import { HomePage } from '../home/home';
 })
 export class RegisterPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private _backend: BackendProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private _backend: BackendProvider, private toastCtrl: ToastController) {
   }
 
   user: any = {
@@ -27,6 +27,8 @@ export class RegisterPage {
     email: '',
     password: ''
   }
+
+  error: any
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RegisterPage');
@@ -38,11 +40,31 @@ export class RegisterPage {
       .subscribe( (data: any) => {
         console.log('data from register subscribe', data)
       },
-      error => {
-        console.log('subscribe error:', error);
+      err => {
+        console.log('error caught in register:', err);
+        this.error = err
       })
 
-    this.navCtrl.setRoot(HomePage, {registered: this.user})
+      if(!this.error) {
+        this.navCtrl.setRoot(HomePage, {registered: this.user})
+      } else {
+        this.presentToast()
+      }
   }
 
+  
+
+  presentToast() {
+    let toast = this.toastCtrl.create({
+      message: 'Registration did not work, not my fault. Try again.',
+      duration: 2000,
+      position: 'middle'
+    });
+  
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+  
+    toast.present();
+  }
 }
