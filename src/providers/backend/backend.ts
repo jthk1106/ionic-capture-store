@@ -20,6 +20,7 @@ export class BackendProvider {
   logoutUrl: any = 'http://localhost:3000/api/appUsers/logout'
 
   register(user) {
+    console.log('register() runs from backend provider')
     return this.http.post(this.registerUrl, user)
   }
 

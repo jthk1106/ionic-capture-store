@@ -41,15 +41,13 @@ export class RegisterPage {
         console.log('data from register subscribe', data)
       },
       err => {
-        console.log('error caught in register:', err);
-        this.error = err
-      })
-
-      if(!this.error) {
-        this.navCtrl.setRoot(HomePage, {registered: this.user})
-      } else {
-        this.presentToast()
+      console.error('err from register:', err)
+      this.presentToast()
+      },
+      () => {
+      this.navCtrl.setRoot(HomePage, {registered: this.user})
       }
+    ) 
   }
 
   
