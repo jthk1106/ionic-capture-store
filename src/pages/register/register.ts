@@ -55,7 +55,7 @@ export class RegisterPage {
   presentToast() {
     let toast = this.toastCtrl.create({
       message: 'Registration did not work, not my fault. Try again.',
-      duration: 2000,
+      duration: 3000,
       position: 'middle'
     });
   

@@ -21,7 +21,10 @@
   <ion-card class="home-login-card">
     <ion-card-header class="home-login-header">
         <div class="login-block">
-          Login now or <button>Register</button>
+          Login now or <button (click)="goRegister()">Register</button>
+        </div>
+      </ion-card-header>
+      <ion-card-content class="home-login-content">
           <div>
               <ion-list>  
                 <ion-item>
@@ -33,10 +36,6 @@
               </ion-list>
               <button ion-button color="light" round outline (click)='newLogin()'>Submit</button>
           </div>
-        </div>
-      </ion-card-header>
-      <ion-card-content class="home-login-content">
-        content...
       </ion-card-content>
   </ion-card>
 
