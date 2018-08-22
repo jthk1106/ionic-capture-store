@@ -24,7 +24,7 @@ export class HomePage {
         console.log('data in subscribe from LoginPage', data)
       },
       err => {
-        console.error('hit error from login:', err)
+        console.error('error from login:', err)
         this.presentToast()
       },
       () => {

@@ -15,6 +15,11 @@ import { BackendProvider } from '../providers/backend/backend';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 
+import { File } from '@ionic-native/file';
+import { Transfer } from '@ionic-native/transfer';
+import { FilePath } from '@ionic-native/file-path';
+import { Camera } from '@ionic-native/camera';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -43,7 +48,11 @@ import { IonicStorageModule } from '@ionic/storage';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    BackendProvider
+    BackendProvider,
+    File,
+    Transfer,
+    FilePath,
+    Camera
   ]
 })
 export class AppModule {}
