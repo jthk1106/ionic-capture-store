@@ -18,6 +18,8 @@ export class BackendProvider {
   registerUrl: any = 'http://localhost:3000/api/appUsers'
   loginUrl: any = 'http://localhost:3000/api/appUsers/login'
   logoutUrl: any = 'http://localhost:3000/api/appUsers/logout'
+  getNameUrl1: any = 'http://localhost:3000/api/appUsers/'
+  getNameUrl2: any = '?access_token='
 
   register(user) {
     console.log('register() runs from backend provider')
@@ -26,6 +28,10 @@ export class BackendProvider {
 
   login(user) {
     return this.http.post(this.loginUrl, user)
+  }
+
+  getName(id, token) {
+    return this.http.get(this.getNameUrl1 + id + this.getNameUrl2 + token)
   }
 
   logout(user) {

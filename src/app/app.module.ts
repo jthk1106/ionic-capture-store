@@ -21,6 +21,7 @@ import { Transfer } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
 
+
 @NgModule({
   declarations: [
     MyApp,

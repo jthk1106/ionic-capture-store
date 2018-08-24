@@ -13,6 +13,12 @@ export class HomePage {
 
   }
 
+  getId: any
+  getToken: any
+  firstName: any
+  lastName: any
+  loggedIn: any
+
   user: any = {
     email: '',
     password: ''
@@ -22,15 +28,30 @@ export class HomePage {
     this._backend.login(this.user)
       .subscribe( (data: any) => {
         console.log('data in subscribe from LoginPage', data)
+        this.getId = data.userId
+        this.getToken = data.token
+        this.loggedIn = true
+        this.goGetName()/*.then(_ => {
+          this.successToast()
+        })
+        */
+        //this.successToast() works fine here
       },
       err => {
         console.error('error from login:', err)
         this.presentToast()
-      },
-      () => {
-        this.successToast()
       }
-    )
+      /*
+      ,
+      () => {
+        //subscribe can take a 3rd parameter
+        
+        this.goGetName().then(_ => {
+          this.successToast()
+        })
+      }
+      */
+      )
   }
 
   goRegister() {
@@ -51,9 +72,21 @@ export class HomePage {
     toast.present();
   }
 
+  goGetName() {
+    this._backend.getName(this.getId, this.getToken)
+      .subscribe((data: any) => {
+        console.log('goGetName() subscribe from HomePage', data)
+        this.firstName = data.firstName
+        this.lastName = data.lastName
+        console.log('check if name came back:', this.firstName)
+        this.successToast()
+      })
+      return this.lastName
+  }
+
   successToast() {
     let toast = this.toastCtrl.create({
-      message: 'You are logged in!',
+      message: 'Hi ' + this.firstName + ' ' + this.lastName + '!',
       duration: 2000,
       position: 'middle'
     });
