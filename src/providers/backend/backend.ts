@@ -16,9 +16,11 @@ export class BackendProvider {
   }
 
   registerUrl: any = 'http://localhost:3000/api/appUsers'
-  loginUrl: any = 'http://localhost:3000/api/appUsers/login'
+  loginUrl: any = 'http://jeremy-spring-2018-phortonssf.c9users.io:8080/api/appUsers/login?access_token=YQyvpGYthmdqFwSnaQC9utkfrMyGHLK0ElGUoYtREMZbtOM7nBhAB1LppfFyvaGf'
+  //'http://localhost:3000/api/appUsers/login'
   logoutUrl: any = 'http://localhost:3000/api/appUsers/logout'
-  getNameUrl1: any = 'http://localhost:3000/api/appUsers/'
+  getNameUrl1: any = 'http://jeremy-spring-2018-phortonssf.c9users.io:8080/api/appUsers/'
+  //'http://localhost:3000/api/appUsers/'
   getNameUrl2: any = '?access_token='
 
   register(user) {

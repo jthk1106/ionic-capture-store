@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ActionSheetController, ToastController, Platform, LoadingController, Loading } from 'ionic-angular';
 
 import { File } from '@ionic-native/file';
-import { Transfer, TransferObject } from '@ionic-native/transfer';
+//import { Transfer, TransferObject } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Storage } from '@ionic/storage';
+import { FileTransfer, FileTransferObject, FileUploadOptions } from '@ionic-native/file-transfer';
 
 /**
  * Generated class for the CapturePage page.
@@ -31,14 +32,15 @@ export class CapturePage {
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private camera: Camera,
-              private transfer: Transfer, 
+              //private transfer: Transfer, 
               private file: File, 
               private filePath: FilePath, 
               public actionSheetCtrl: ActionSheetController, 
               public toastCtrl: ToastController, 
               public platform: Platform, 
               public loadingCtrl: LoadingController,
-              private storage: Storage) {}
+              private storage: Storage,
+              private transfer: FileTransfer) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CapturePage');
@@ -175,7 +177,8 @@ export class CapturePage {
       quality: 100,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
+      mediaType: this.camera.MediaType.PICTURE,
+      //saveToPhotoAlbum: true
     }
     
     console.log('from takePhoto() before getPicture')
@@ -188,6 +191,28 @@ export class CapturePage {
      // Handle error
      console.error('error from takePhoto()', err)
     });
+  }
+
+  upPhoto() {
+    let loader = this.loadingCtrl.create({
+      content: 'Uploading...'
+    }) 
+    loader.present()
+
+    const fileTransfer: FileTransferObject = this.transfer.create()
+
+    let options: FileUploadOptions = {
+      fileKey: 'file',
+      fileName: 'name.jpg',
+      headers: {}
+    }
+ 
+   fileTransfer.upload('<file path>', '<api endpoint>', options)
+    .then((data) => {
+      // success
+    }, (err) => {
+      // error
+    })
   }
 
 }
