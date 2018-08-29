@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, ToastController } from 'ionic-angular';
 import { BackendProvider } from '../../providers/backend/backend';
 import { RegisterPage } from '../register/register';
+import { Storage } from '@ionic/storage'; 
 
 @Component({
   selector: 'page-home',
@@ -9,7 +10,7 @@ import { RegisterPage } from '../register/register';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController, private _backend: BackendProvider, private toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, private _backend: BackendProvider, private toastCtrl: ToastController, private storage: Storage) {
 
   }
 
@@ -36,9 +37,11 @@ export class HomePage {
         })
         */
         //this.successToast() works fine here
+        this.storage.set('id', this.getId);
+        this.storage.set('token', this.getToken);
       },
       err => {
-        console.error('error from login:', err)
+        console.error('error from login:', err.message)
         this.presentToast()
       }
       /*

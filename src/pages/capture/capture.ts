@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ActionSheetController, ToastController, Platform, LoadingController, Loading } from 'ionic-angular';
 
 import { File } from '@ionic-native/file';
-//import { Transfer, TransferObject } from '@ionic-native/transfer';
+import { Transfer, TransferObject } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Storage } from '@ionic/storage';
@@ -27,12 +27,18 @@ export class CapturePage {
   lastImage: string = null
   loading: Loading
 
-  myphoto: any
+  pic: any = {
+    image: '',
+    title: '',
+    text: ''
+  }
+  id: any
+  token: any
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private camera: Camera,
-              //private transfer: Transfer, 
+              private transfer: Transfer, 
               private file: File, 
               private filePath: FilePath, 
               public actionSheetCtrl: ActionSheetController, 
@@ -40,7 +46,7 @@ export class CapturePage {
               public platform: Platform, 
               public loadingCtrl: LoadingController,
               private storage: Storage,
-              private transfer: FileTransfer) {}
+              private transferfile: FileTransfer) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CapturePage');
@@ -97,6 +103,7 @@ export class CapturePage {
       }
     }, (err) => {
       this.presentToast('Error while selecting image.');
+      console.error(err.message)
     });
   }
 
@@ -112,8 +119,10 @@ export class CapturePage {
   private copyFileToLocalDir(namePath, currentName, newFileName) {
     this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
       this.lastImage = newFileName;
+      console.log(success)
     }, error => {
       this.presentToast('Error while storing file.');
+      console.error(error.message)
     });
   }
   
@@ -137,7 +146,8 @@ export class CapturePage {
 
   public uploadImage() {
     // Destination URL
-    var url = "http://yoururl/upload.php";
+    var url = 'http://jeremy-spring-2018-phortonssf.c9users.io:8080/api/appUsers/' + this.id + '/photo?access_token=' + this.token
+    //"http://yoururl/upload.php";
    
     // File for Upload
     var targetPath = this.pathForImage(this.lastImage);
@@ -172,12 +182,10 @@ export class CapturePage {
   
 
   takePhoto() {
-    console.log('takePhoto()')
     const options: CameraOptions = {
       quality: 100,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE,
+      destinationType: 0,
+      encodingType: 0,
       //saveToPhotoAlbum: true
     }
     
@@ -185,33 +193,55 @@ export class CapturePage {
     this.camera.getPicture(options).then((imageData) => {
      // imageData is either a base64 encoded string or a file URI
      // If it's base64 (DATA_URL):
-     this.myphoto = 'data:image/jpeg;base64,' + imageData;
-     console.log('from takePhoto() after getPicture promise')
+     this.pic.image = 'data:image/jpeg;base64,' + imageData;
+     console.log('this.pic.image:', this.pic.image)
     }, (err) => {
      // Handle error
-     console.error('error from takePhoto()', err)
+     console.error('error from takePhoto():', err)
     });
   }
 
   upPhoto() {
+    this.storage.get('id').then((val) => {
+      this.id = val
+      console.log('Your id is', this.id);
+    });
+    this.storage.get('token').then((val) => {
+      this.token = val
+      console.log('Your token is', this.token);
+    });
+
+
     let loader = this.loadingCtrl.create({
       content: 'Uploading...'
     }) 
     loader.present()
 
-    const fileTransfer: FileTransferObject = this.transfer.create()
+    var random = Math.floor(Math.random() * 100)
+
+    const fileTransfer: FileTransferObject = this.transferfile.create()
 
     let options: FileUploadOptions = {
-      fileKey: 'file',
-      fileName: 'name.jpg',
+      fileKey: 'photo',
+      fileName: 'myImage_' + random + '.jpg',
+      chunkedMode: false,
+      httpMethod: 'post',
+      mimeType: 'image/jpeg',
       headers: {}
     }
  
-   fileTransfer.upload('<file path>', '<api endpoint>', options)
+  //http://jeremy-spring-2018-phortonssf.c9users.io:8080/api/appUsers/5b78ce28c5aec4576c9ee839/photo?access_token=YQyvpGYthmdqFwSnaQC9utkfrMyGHLK0ElGUoYtREMZbtOM7nBhAB1LppfFyvaGf
+  //'http://jeremy-spring-2018-phortonssf.c9users.io:8080/api/appUsers/' + id + '/photo?access_token=' + token
+
+   fileTransfer.upload(this.pic, 'http://jeremy-spring-2018-phortonssf.c9users.io:8080/api/appUsers/' + this.id + '/photo?access_token=' + this.token, options)
     .then((data) => {
       // success
+      console.log('upload success')
+      loader.dismiss()
     }, (err) => {
       // error
+      console.error('upload failure:', err.message)
+      loader.dismiss()
     })
   }
 
