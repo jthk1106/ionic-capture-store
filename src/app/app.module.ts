@@ -9,6 +9,7 @@ import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { RegisterPage } from '../pages/register/register';
 import { CapturePage } from '../pages/capture/capture';
+import { SpeakPage } from '../pages/speak/speak';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -21,6 +22,7 @@ import { Transfer } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
 import { FileTransfer } from '@ionic-native/file-transfer';
+import { TextToSpeech } from '@ionic-native/text-to-speech';
 
 
 @NgModule({
@@ -31,7 +33,8 @@ import { FileTransfer } from '@ionic-native/file-transfer';
     HomePage,
     TabsPage,
     RegisterPage,
-    CapturePage
+    CapturePage,
+    SpeakPage
   ],
   imports: [
     BrowserModule,
@@ -47,7 +50,8 @@ import { FileTransfer } from '@ionic-native/file-transfer';
     HomePage,
     TabsPage,
     RegisterPage,
-    CapturePage
+    CapturePage,
+    SpeakPage
   ],
   providers: [
     StatusBar,
@@ -58,7 +62,8 @@ import { FileTransfer } from '@ionic-native/file-transfer';
     Transfer,
     FilePath,
     Camera,
-    FileTransfer
+    FileTransfer,
+    TextToSpeech
   ]
 })
 export class AppModule {}
