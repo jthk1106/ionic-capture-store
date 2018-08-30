@@ -1,9 +1,49 @@
 page-home {
+    .scroll-content {
+        background-color: white;
+    }
+
+    .camera {
+        font-size: 80px;
+    }
     
+    .home-card {
+        background-color: #EEB902;
+        color: black;
+    }
+    
+    .home-card-header {
+        text-align: center;
+        color: black;
+        font-size: 50px;
+        font-weight: bolder;
+    }
+    
+    .home-card-content {
+        text-align: center;
+    }
+    
+    .home-login-card {
+        background: #8CBCB9;
+    
+    }
+    
+    .home-login-header {
+        text-align: center;
+        color: black;
+        font-size: 15px;
+        font-weight: bolder;
+    }
+    
+    .home-login-content {
+        text-align: center;
+        color: white;
+    }
 }
 
+
 .scroll-content {
-    background-color: coral;
+    background-color: white;
 }
 
 .camera {
@@ -11,14 +51,15 @@ page-home {
 }
 
 .home-card {
-    background-color: black;
-    color: white;
+    background-color: #EEB902;
+    color: black;
 }
 
 .home-card-header {
+    font-family: 'Playfair Display SC', serif;
     text-align: center;
-    color: gray;
-    font-size: 30px;
+    color: black;
+    font-size: 50px;
     font-weight: bolder;
 }
 
@@ -27,7 +68,7 @@ page-home {
 }
 
 .home-login-card {
-    background: gray;
+    background: #8CBCB9;
 
 }
 

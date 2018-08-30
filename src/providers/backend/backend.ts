@@ -15,10 +15,12 @@ export class BackendProvider {
     console.log('Hello BackendProvider Provider');
   }
 
-  registerUrl: any = 'http://localhost:3000/api/appUsers'
-  loginUrl: any = 'http://jeremy-spring-2018-phortonssf.c9users.io:8080/api/appUsers/login?access_token=YQyvpGYthmdqFwSnaQC9utkfrMyGHLK0ElGUoYtREMZbtOM7nBhAB1LppfFyvaGf'
+  registerUrl: any = 'http://jeremy-spring-2018-phortonssf.c9users.io:8080/api/appUsers'
+  //'http://localhost:3000/api/appUsers'
+  loginUrl: any = 'http://jeremy-spring-2018-phortonssf.c9users.io:8080/api/appUsers/login'
   //'http://localhost:3000/api/appUsers/login'
-  logoutUrl: any = 'http://localhost:3000/api/appUsers/logout'
+  logoutUrl: any = 'http://jeremy-spring-2018-phortonssf.c9users.io:8080/api/appUsers/logout?access_token='
+  //'http://localhost:3000/api/appUsers/logout'
   getNameUrl1: any = 'http://jeremy-spring-2018-phortonssf.c9users.io:8080/api/appUsers/'
   //'http://localhost:3000/api/appUsers/'
   getNameUrl2: any = '?access_token='
@@ -36,8 +38,8 @@ export class BackendProvider {
     return this.http.get(this.getNameUrl1 + id + this.getNameUrl2 + token)
   }
 
-  logout(user) {
-    return this.http.post(this.logoutUrl, user)
+  logout(token) {
+    return this.http.post(this.logoutUrl + token, {})
   }
 
 }

@@ -1,6 +1,7 @@
 <ion-header>
   <ion-navbar>
-      <ion-icon name="camera"></ion-icon>
+    <ion-title>Talkman <ion-icon name="mic"></ion-icon></ion-title>
+    <button *ngIf="loggedIn" ion-button end round color="danger" (click)="goLogout()">Logout</button>
   </ion-navbar>
 </ion-header>
 
@@ -8,20 +9,26 @@
 
   <ion-card class="home-card">
     <ion-card-header class="home-card-header">
+      TALKMAN
+      <p>by Talkboy</p>
+      <!--
       Capture<br> 
       and<br> 
       Store
+      -->
     </ion-card-header>
     <ion-card-content class="home-card-content">
-      <ion-icon class="camera" name="camera"></ion-icon><br>
-      You have a camera, you capture a picture, you store it. Capture and store.
+      <ion-icon class="camera" name="mic"></ion-icon><br>
+      You talk. You record. You play it. Talkman.
+      <!--<ion-icon class="camera" name="camera"></ion-icon><br>
+      You have a camera, you capture a picture, you store it. Capture and store.-->
     </ion-card-content>
   </ion-card>
     
   <ion-card class="home-login-card">
     <ion-card-header class="home-login-header">
         <div class="login-block">
-          Login now or <button (click)="goRegister()">Register</button>
+          Login now or <button (click)="goRegister()">REGISTER</button>
         </div>
       </ion-card-header>
       <ion-card-content class="home-login-content">
@@ -34,7 +41,7 @@
                   <ion-input type="password" placeholder="Password" [(ngModel)]='user.password' clearInput></ion-input>
                 </ion-item>
               </ion-list>
-              <button ion-button color="light" round outline (click)='newLogin()'>Submit</button>
+              <button ion-button color="light" round (click)='newLogin()'>Submit</button>
           </div>
       </ion-card-content>
   </ion-card>

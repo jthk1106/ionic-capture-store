@@ -3,6 +3,7 @@ import { NavController, ToastController } from 'ionic-angular';
 import { BackendProvider } from '../../providers/backend/backend';
 import { RegisterPage } from '../register/register';
 import { Storage } from '@ionic/storage'; 
+//import { SpeakPage } from '../speak/speak';
 
 @Component({
   selector: 'page-home',
@@ -39,6 +40,7 @@ export class HomePage {
         //this.successToast() works fine here
         this.storage.set('id', this.getId);
         this.storage.set('token', this.getToken);
+        //this.navCtrl.setRoot(SpeakPage)
       },
       err => {
         console.error('error from login:', err.message)
@@ -99,6 +101,15 @@ export class HomePage {
     });
   
     toast.present();
+  }
+
+  goLogout() {
+    console.log('goLogout() runs')
+    this._backend.logout(this.getToken)
+    .subscribe((data: any) => {
+      console.log(data)
+      this.loggedIn = false
+    })
   }
 
 }   
