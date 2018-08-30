@@ -5,7 +5,6 @@ import { RegisterPage } from '../register/register';
 import { Storage } from '@ionic/storage'; 
 import { SpeakPage } from '../speak/speak';
 
-@IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -35,6 +34,7 @@ export class HomePage {
         this.getToken = data.token
         this.loggedIn = true
         this.goGetName()
+        console.log('helloooo')
         this.storage.set('id', this.getId);
         this.storage.set('token', this.getToken);
 
@@ -97,7 +97,9 @@ export class HomePage {
       console.log('Dismissed toast');
     });
   
-    toast.present();
+    toast.present().then( ()=> {
+      this.navCtrl.setRoot(SpeakPage)
+    })
   }
 
   goLogout() {
