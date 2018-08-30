@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController, ToastController } from 'ionic-angular';
+import { NavController, ToastController, IonicPage } from 'ionic-angular';
 import { BackendProvider } from '../../providers/backend/backend';
 import { RegisterPage } from '../register/register';
 import { Storage } from '@ionic/storage'; 
-//import { SpeakPage } from '../speak/speak';
+import { SpeakPage } from '../speak/speak';
 
+@IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -33,14 +34,10 @@ export class HomePage {
         this.getId = data.userId
         this.getToken = data.token
         this.loggedIn = true
-        this.goGetName()/*.then(_ => {
-          this.successToast()
-        })
-        */
-        //this.successToast() works fine here
+        this.goGetName()
         this.storage.set('id', this.getId);
         this.storage.set('token', this.getToken);
-        //this.navCtrl.setRoot(SpeakPage)
+
       },
       err => {
         console.error('error from login:', err.message)
@@ -91,7 +88,7 @@ export class HomePage {
 
   successToast() {
     let toast = this.toastCtrl.create({
-      message: 'Hi ' + this.firstName + ' ' + this.lastName + '!',
+      message: 'Hi ' + this.firstName + ' ' + this.lastName + ', go speak!',
       duration: 2000,
       position: 'middle'
     });
@@ -109,6 +106,14 @@ export class HomePage {
     .subscribe((data: any) => {
       console.log(data)
       this.loggedIn = false
+      this.user.email = ''
+      this.user.password = ''
+      let toast = this.toastCtrl.create({
+        message: 'Logged out!',
+        duration: 3000,
+        position: 'middle'
+      });
+      toast.present()
     })
   }
 
