@@ -39,7 +39,7 @@ export class RegisterPage {
       .subscribe( (data: any) => {
       },
       err => {
-      console.error('err from register:', err)
+      console.error('err from register:', err.message)
       this.presentToast()
       },
       () => {

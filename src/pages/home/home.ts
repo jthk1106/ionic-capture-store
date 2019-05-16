@@ -12,7 +12,7 @@ import { SpeakPage } from '../speak/speak';
 export class HomePage {
 
   constructor(public navCtrl: NavController, private _backend: BackendProvider, private toastCtrl: ToastController, private storage: Storage) {
-
+    
   }
 
   getId: any
