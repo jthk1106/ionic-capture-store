@@ -35,26 +35,23 @@ export class RegisterPage {
   }
 
   newRegister() {
-    console.log('newRegister runs from RegisterPage', this.user)
     this._backend.register(this.user)
       .subscribe( (data: any) => {
-        console.log('data from register subscribe', data)
       },
       err => {
-      console.error('err from register:', err)
+      console.error('err from register:', err.message)
       this.presentToast()
       },
       () => {
       this.navCtrl.setRoot(HomePage, {registered: this.user})
-      }
-    ) 
+      }) 
   }
 
   
 
   presentToast() {
     let toast = this.toastCtrl.create({
-      message: "Registration didn't work. Not my fault so try again or something.",
+      message: "Registration didn't work. Not my fault so try again or something. (Try a different login email)",
       duration: 3000,
       position: 'middle'
     });
