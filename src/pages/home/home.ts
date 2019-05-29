@@ -12,7 +12,7 @@ import { SpeakPage } from '../speak/speak';
 export class HomePage {
 
   constructor(public navCtrl: NavController, private _backend: BackendProvider, private toastCtrl: ToastController, private storage: Storage) {
-    
+  
   }
 
   getId: any
@@ -35,8 +35,8 @@ export class HomePage {
         this.loggedIn = true
         this.goGetName()
         console.log('helloooo')
-        this.storage.set('id', this.getId);
-        this.storage.set('token', this.getToken);
+        //this.storage.set('id', this.getId);
+        //this.storage.set('token', this.getToken);
 
       },
       err => {
